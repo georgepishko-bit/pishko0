@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pishko Auto Detailing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0d0e10;
+    --panel:#16181b;
+    --line:#2a2d31;
+    --text:#e9eaec;
+    --muted:#9a9ea4;
+    --amber:#a06bff;
+    --amber-dim:#3a2a5c;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+  }
+  h1,h2,h3,.brand{
+    font-family:'Oswald',sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+  }
+  a{color:inherit;text-decoration:none;}
+
+  /* Header */
+  header{
+    position:sticky;top:0;z-index:50;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:20px 6%;
+    background:rgba(13,14,16,0.85);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .brand{font-size:1.4rem;font-weight:700;display:flex;align-items:center;gap:12px;}
+  .brand img{
+    height:40px;width:40px;
+    object-fit:contain;
+    filter:drop-shadow(0 0 12px rgba(160,107,255,0.35));
+  }
+  .brand span{color:var(--amber);}
+  nav{display:flex;gap:32px;}
+  nav a{font-size:0.9rem;font-weight:500;color:var(--muted);transition:color .2s;}
+  nav a:hover{color:var(--amber);}
+  .nav-cta{
+    border:1px solid var(--amber);color:var(--amber);
+    padding:8px 18px;border-radius:2px;font-size:0.85rem;font-weight:600;
+  }
+  .nav-cta:hover{background:var(--amber);color:#0d0e10;}
+
+  /* Hero */
+  .hero{
+    position:relative;
+    padding:120px 6% 100px;
+    overflow:hidden;
+    border-bottom:1px solid var(--line);
+  }
+  .hero::before{
+    content:'';
+    position:absolute;top:-50%;left:-10%;
+    width:120%;height:200%;
+    background:linear-gradient(115deg, transparent 40%, rgba(232,162,60,0.06) 50%, transparent 60%);
+    animation:sweep 8s ease-in-out infinite;
+  }
+  @keyframes sweep{
+    0%,100%{transform:translateX(-15%);}
+    50%{transform:translateX(15%);}
+  }
+  .hero-inner{position:relative;z-index:2;max-width:720px;}
+  .hero-logo{
+    position:absolute;
+    right:-60px;top:50%;
+    transform:translateY(-50%);
+    width:480px;max-width:55%;
+    opacity:0.12;
+    z-index:1;
+    pointer-events:none;
+  }
+  .eyebrow{
+    color:var(--amber);font-size:0.85rem;font-weight:600;
+    letter-spacing:0.2em;text-transform:uppercase;margin-bottom:18px;
+    display:block;
+  }
+  .hero h1{
+    font-size:clamp(2.6rem,6vw,4.6rem);
+    line-height:1.05;
+    margin-bottom:22px;
+  }
+  .hero h1 .accent{color:var(--amber);}
+  .hero p{
+    color:var(--muted);font-size:1.1rem;max-width:520px;margin-bottom:36px;
+  }
+  .btn-row{display:flex;gap:16px;flex-wrap:wrap;}
+  .btn{
+    padding:14px 30px;border-radius:2px;font-weight:600;font-size:0.95rem;
+    transition:all .2s;
+  }
+  .btn-primary{background:var(--amber);color:#0d0e10;}
+  .btn-primary:hover{background:#bb8eff;transform:translateY(-2px);}
+  .btn-outline{border:1px solid var(--line);color:var(--text);}
+  .btn-outline:hover{border-color:var(--amber);color:var(--amber);}
+
+  /* Services */
+  section{padding:90px 6%;}
+  .section-head{margin-bottom:56px;max-width:600px;}
+  .section-head .eyebrow{margin-bottom:12px;}
+  .section-head h2{font-size:clamp(2rem,4vw,2.8rem);margin-bottom:14px;}
+  .section-head p{color:var(--muted);}
+
+  .services-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:24px;
+  }
+  .service-card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:32px;
+    position:relative;
+    transition:border-color .25s, transform .25s;
+  }
+  .service-card:hover{
+    border-color:var(--amber-dim);
+    transform:translateY(-4px);
+  }
+  .service-card .num{
+    font-family:'Oswald',sans-serif;
+    color:var(--amber);font-size:0.85rem;font-weight:600;
+    letter-spacing:0.15em;margin-bottom:18px;display:block;
+  }
+  .service-card h3{font-size:1.3rem;margin-bottom:10px;}
+  .service-card p{color:var(--muted);font-size:0.95rem;margin-bottom:18px;}
+  .service-card .price{
+    font-family:'Oswald',sans-serif;font-size:1.6rem;color:var(--text);
+    border-top:1px solid var(--line);padding-top:16px;
+    display:flex;justify-content:space-between;align-items:center;gap:12px;
+  }
+  .service-card .price .unit{color:var(--muted);font-size:0.8rem;font-family:'Inter',sans-serif;text-transform:none;letter-spacing:normal;}
+  .size-select{
+    background:var(--bg);
+    border:1px solid var(--line);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    font-size:0.85rem;
+    padding:8px 10px;
+    border-radius:2px;
+    cursor:pointer;
+  }
+  .size-select:focus{outline:1px solid var(--amber);}
+
+  /* Process */
+  .process{background:var(--panel);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .process-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:40px;
+  }
+  .process-step{position:relative;padding-left:0;}
+  .process-step .step-num{
+    font-family:'Oswald',sans-serif;font-size:3rem;font-weight:700;
+    color:transparent;
+    -webkit-text-stroke:1.5px var(--amber-dim);
+    line-height:1;margin-bottom:14px;display:block;
+  }
+  .process-step h3{font-size:1.1rem;margin-bottom:8px;}
+  .process-step p{color:var(--muted);font-size:0.9rem;}
+
+  /* Gallery placeholder */
+  .gallery-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:16px;
+  }
+  .gallery-item{
+    aspect-ratio:4/3;
+    background:linear-gradient(135deg,#1c1e22,#0d0e10);
+    border:1px solid var(--line);
+    border-radius:4px;
+    display:flex;align-items:center;justify-content:center;
+    color:var(--muted);font-size:0.85rem;
+    position:relative;overflow:hidden;
+  }
+  .gallery-item img{
+    width:100%;height:100%;object-fit:cover;display:block;
+  }
+  .gallery-item .tag{
+    position:absolute;top:10px;left:10px;
+    background:rgba(13,14,16,0.75);
+    color:var(--amber);
+    font-family:'Oswald',sans-serif;
+    font-size:0.75rem;letter-spacing:0.1em;
+    padding:4px 10px;border-radius:2px;
+    z-index:2;
+  }
+  .gallery-item::after{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(115deg, transparent 35%, rgba(232,162,60,0.08) 50%, transparent 65%);
+    transform:translateX(-100%);
+    transition:transform .6s ease;
+  }
+  .gallery-item:hover::after{transform:translateX(100%);}
+
+  /* Testimonials */
+  .testimonials{background:var(--panel);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .testimonial-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:24px;
+  }
+  .testimonial-card{
+    background:var(--bg);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:28px;
+  }
+  .stars{color:var(--amber);font-size:1rem;margin-bottom:14px;letter-spacing:2px;}
+  .testimonial-card p{color:var(--text);font-size:0.95rem;margin-bottom:18px;}
+  .testimonial-card .author{
+    font-family:'Oswald',sans-serif;font-size:0.85rem;
+    color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;
+  }
+  .cta-section{
+    text-align:center;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:70px 6%;
+    margin:0 6% 0;
+  }
+  .cta-section h2{font-size:clamp(1.8rem,4vw,2.6rem);margin-bottom:16px;}
+  .cta-section p{color:var(--muted);margin-bottom:32px;}
+
+  footer{
+    padding:50px 6% 30px;
+    border-top:1px solid var(--line);
+    display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px;
+    color:var(--muted);font-size:0.9rem;
+  }
+  footer .brand{font-size:1.1rem;margin-bottom:8px;}
+  .footer-col h4{
+    font-family:'Oswald',sans-serif;text-transform:uppercase;font-size:0.8rem;
+    letter-spacing:0.15em;color:var(--text);margin-bottom:12px;
+  }
+  .footer-col p, .footer-col a{display:block;margin-bottom:6px;font-size:0.9rem;}
+  .footer-col a:hover{color:var(--amber);}
+
+  @media (max-width:768px){
+    nav{display:none;}
+    .cta-section{margin:0;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand"><img src="assets/logo.jpg" alt="Pishko Auto Detailing logo">PISHKO<span>.</span></div>
+  <nav>
+    <a href="#services">Services</a>
+    <a href="#process">Process</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <a href="#contact" class="nav-cta">Book Now</a>
+</header>
+
+<section class="hero">
+  <img src="assets/logo.jpg" alt="" class="hero-logo">
+  <div class="hero-inner">
+    <span class="eyebrow">Mobile &amp; In-Shop Detailing</span>
+    <h1>Bring back<br>that <span class="accent">showroom</span> shine.</h1>
+    <p>Pishko Auto Detailing delivers meticulous interior and exterior care — hand-washed, clay-barred, and finished with a gloss that holds up. We come to you.</p>
+    <div class="btn-row">
+      <a href="#contact" class="btn btn-primary">Book an Appointment</a>
+      <a href="#services" class="btn btn-outline">View Services</a>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="section-head">
+    <span class="eyebrow">Services</span>
+    <h2>Choose your level of shine</h2>
+    <p>Every package starts with a thorough wash and decontamination. Pick the depth of care that fits your vehicle.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <span class="num">01 — REFRESH</span>
+      <h3>Quick Refresh</h3>
+      <p>A fast exterior rinse, wheel wipe-down, and interior vacuum to knock the dust off.</p>
+      <div class="price">
+        <span class="amount" data-prices="35,45,55">$35</span>
+        <select class="size-select">
+          <option value="0">Sedan / Coupe</option>
+          <option value="1">SUV</option>
+          <option value="2">Truck / Large SUV</option>
+        </select>
+      </div>
+    </div>
+    <div class="service-card">
+      <span class="num">02 — INTERIOR</span>
+      <h3>Interior Detail</h3>
+      <p>Deep vacuum, wipe-down of all surfaces, vents, console, leather conditioning, and window cleaning inside.</p>
+      <div class="price">
+        <span class="amount" data-prices="90,110,130">$90</span>
+        <select class="size-select">
+          <option value="0">Sedan / Coupe</option>
+          <option value="1">SUV</option>
+          <option value="2">Truck / Large SUV</option>
+        </select>
+      </div>
+    </div>
+    <div class="service-card">
+      <span class="num">03 — EXTERIOR</span>
+      <h3>Exterior Detail</h3>
+      <p>Hand wash, clay bar decontamination, wheel and tire cleaning, and a protective wax finish.</p>
+      <div class="price">
+        <span class="amount" data-prices="80,100,120">$80</span>
+        <select class="size-select">
+          <option value="0">Sedan / Coupe</option>
+          <option value="1">SUV</option>
+          <option value="2">Truck / Large SUV</option>
+        </select>
+      </div>
+    </div>
+    <div class="service-card">
+      <span class="num">04 — FULL PACKAGE</span>
+      <h3>Full Package</h3>
+      <p>The complete Interior and Exterior Detail combined — the works, inside and out.</p>
+      <div class="price">
+        <span class="amount" data-prices="150,180,210">$150</span>
+        <select class="size-select">
+          <option value="0">Sedan / Coupe</option>
+          <option value="1">SUV</option>
+          <option value="2">Truck / Large SUV</option>
+        </select>
+      </div>
+    </div>
+    <div class="service-card">
+      <span class="num">05 — ADD-ON</span>
+      <h3>Engine Bay Cleaning</h3>
+      <p>Safe degreasing and detailing of the engine bay, dressed for a clean, factory-fresh look.</p>
+      <div class="price">
+        <span class="amount" data-prices="35,45,55">$35</span>
+        <select class="size-select">
+          <option value="0">Sedan / Coupe</option>
+          <option value="1">SUV</option>
+          <option value="2">Truck / Large SUV</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.querySelectorAll('.service-card').forEach(function(card){
+      var select = card.querySelector('.size-select');
+      var amount = card.querySelector('.amount');
+      var prices = amount.getAttribute('data-prices').split(',');
+      select.addEventListener('change', function(){
+        amount.textContent = '$' + prices[select.value];
+      });
+    });
+  </script>
+</section>
+
+<section id="process" class="process">
+  <div class="section-head">
+    <span class="eyebrow">How It Works</span>
+    <h2>From booking to brand new</h2>
+  </div>
+  <div class="process-grid">
+    <div class="process-step">
+      <span class="step-num">01</span>
+      <h3>Book Online</h3>
+      <p>Pick your package, date, and location — we come to you.</p>
+    </div>
+    <div class="process-step">
+      <span class="step-num">02</span>
+      <h3>We Inspect</h3>
+      <p>A quick walk-around to confirm scope and flag any problem areas before we start.</p>
+    </div>
+    <div class="process-step">
+      <span class="step-num">03</span>
+      <h3>We Detail</h3>
+      <p>Hand wash, decontaminate, condition, and polish — every panel and surface.</p>
+    </div>
+    <div class="process-step">
+      <span class="step-num">04</span>
+      <h3>Final Walkthrough</h3>
+      <p>We review the results with you and make sure every detail meets the standard.</p>
+    </div>
+  </div>
+</section>
+
+<section id="gallery">
+  <div class="section-head">
+    <span class="eyebrow">Recent Work</span>
+    <h2>Before &amp; after</h2>
+    <p>Add your own photos here to show off recent details.</p>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-item"><span class="tag">Before</span><img src="assets/before1.png" alt="Before detail"></div>
+    <div class="gallery-item"><span class="tag">After</span><img src="assets/after1.png" alt="After detail"></div>
+    <div class="gallery-item"><span class="tag">Before</span><img src="assets/before2.jpg" alt="Before exterior detail"></div>
+    <div class="gallery-item"><span class="tag">After</span><img src="assets/after2.jpg" alt="After exterior detail"></div>
+    <div class="gallery-item"><span class="tag">Before</span><img src="assets/before3.png" alt="Before interior detail"></div>
+    <div class="gallery-item"><span class="tag">After</span><img src="assets/after3.png" alt="After interior detail"></div>
+  </div>
+</section>
+
+<section class="testimonials" id="reviews">
+  <div class="section-head">
+    <span class="eyebrow">Customer Reviews</span>
+    <h2>What people are saying</h2>
+    <p>Real feedback from real customers. <a href="https://share.google/xNXJzn4csxX4yYmY0" target="_blank" style="color:var(--amber);text-decoration:underline;">See all reviews on Google</a> or leave your own below.</p>
+  </div>
+  <div class="testimonial-grid">
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p>10/10. Attention to detail is outstanding. Couldn't recommend more.</p>
+      <div class="author">— Mason Wyrick</div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p>Wonderful job! Tesla's are not easy to detail, but he did excellent. It's like driving a brand new car. I'd recommend him to anyone looking for top tier service!</p>
+      <div class="author">— Ian Chang</div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p>Phenomenal job, got the inside looking crisp and clean and smelling great!</p>
+      <div class="author">— Nick Jobst</div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="cta-section">
+    <h2>Ready for a car that turns heads?</h2>
+    <p>Call, text, or book online — we'll get your vehicle on the schedule.</p>
+    <div class="btn-row" style="justify-content:center;">
+      <a href="tel:+18435307026" class="btn btn-primary">Call (843) 530-7026</a>
+      <a href="mailto:pishkoautodetail@gmail.com" class="btn btn-outline">Email Us</a>
+    </div>
+    <p style="margin-top:28px;font-size:0.9rem;">
+      Loved your detail? <a href="https://share.google/xNXJzn4csxX4yYmY0" target="_blank" style="color:var(--amber);text-decoration:underline;">Leave us a Google review</a>.
+    </p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-col">
+    <div class="brand">PISHKO<span style="color:var(--amber)">.</span></div>
+    <p>Auto detailing done right.</p>
+    <p style="margin-top:10px;font-style:italic;color:var(--amber);font-size:0.85rem;">"Whatever you do, work at it with all your heart, as working for the Lord." — Colossians 3:23</p>
+  </div>
+  <div class="footer-col">
+    <h4>Contact</h4>
+    <p>pishkoautodetail@gmail.com</p>
+    <p>(843) 530-7026</p>
+    <p>Charleston, SC</p>
+  </div>
+  <div class="footer-col">
+    <h4>Hours</h4>
+    <p>Open 24 Hours</p>
+    <p>7 Days a Week</p>
+  </div>
+  <div class="footer-col">
+    <h4>Links</h4>
+    <a href="#services">Services</a>
+    <a href="#process">Process</a>
+    <a href="#gallery">Gallery</a>
+  </div>
+  <div class="footer-col">
+    <h4>Follow &amp; Review</h4>
+    <a href="https://share.google/xNXJzn4csxX4yYmY0" target="_blank">Leave a Google Review</a>
+    <a href="https://www.instagram.com/pishko_auto_detailing" target="_blank">Instagram</a>
+    <a href="https://www.facebook.com/share/1D9hQ6Sf3u/" target="_blank">Facebook</a>
+    <a href="https://www.tiktok.com/@pishko.auto.detail" target="_blank">TikTok</a>
+  </div>
+</footer>
+
+</body>
+</html>
